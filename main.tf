@@ -28,10 +28,20 @@ module "eks-cluster" {
 }
 
 ################################################################################
+# Helm Nginx Ingress Controller
+################################################################################
+
+module "helm-ingress" {
+  source = "git@github.com:kubernetes-work/helm-nginx-ingress-controller.git?ref=main"
+
+  depends_on = [module.eks-cluster]
+}
+
+################################################################################
 # FluxCD
 ################################################################################
 
-module "helm" {
+module "helm-flux-sync" {
   source        = "git@github.com:kubernetes-work/helm-flxu-sync-charts.git?ref=main"
   github_url        = var.github_url
   github_username   = var.github_username
