@@ -8,6 +8,9 @@ desired_size    = 2
 min_size        = 1
 max_size        = 4
 
+############
+external_dns_provider   = "aws"
+zonetype                = "public"
 #############
 github_url        = "https://github.com/Naresh240/fluxcd.git"
 github_username   = "naresh240"

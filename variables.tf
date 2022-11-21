@@ -47,8 +47,21 @@ variable "tags" {
 }
 
 ###############################################
+#######       External DNS      #########
+###############################################
+
+variable "external_dns_provider" {
+  type  = string
+}
+
+variable "zonetype" {
+  type  = string
+}
+
+###############################################
 #######        fluxCD variables       #########
 ###############################################
+
 variable github_url {
     type    = string
 }

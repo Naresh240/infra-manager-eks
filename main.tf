@@ -8,6 +8,7 @@ module "vpc" {
   vpc_cidr                    = var.vpc_cidr
   subnet_count                = var.subnet_count
 }
+
 ################################################################################
 # EKS Cluster
 ################################################################################
@@ -38,6 +39,22 @@ module "helm-ingress" {
 }
 
 ################################################################################
+# Helm External DNS
+################################################################################
+
+module "external-dns" {
+  source = "git@github.com:kubernetes-work/helm-external-dns.git?ref=main"
+
+  external_dns_provider    = var.external_dns_provider
+  region        = var.region
+  zonetype      = var.zonetype
+  oidc_arn      = module.eks-cluster.oidc_arn
+  oidc_url      = module.eks-cluster.oidc_url
+  cluster_name  = module.eks-cluster.cluster_name
+  depends_on    = [module.helm-ingress]
+}
+
+################################################################################
 # FluxCD
 ################################################################################
 
@@ -49,5 +66,5 @@ module "helm-flux-sync" {
   github_branch     = var.github_branch
   github_infra_path = var.github_infra_path
 
- depends_on = [module.eks-cluster]
+ depends_on = [module.external-dns]
 }
