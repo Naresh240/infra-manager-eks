@@ -8,3 +8,7 @@
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
+
+# git token
+git_token.yaml
+git_token.yaml.encrypted

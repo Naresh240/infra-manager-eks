@@ -1,3 +1,7 @@
+locals {
+  git-token = yamldecode(data.aws_kms_secrets.git-creds.plaintext["git-token"])
+}
+
 ################################################################################
 # VPC
 ################################################################################
@@ -62,7 +66,7 @@ module "helm-flux-sync" {
   source        = "git@github.com:kubernetes-work/helm-flxu-sync-charts.git?ref=main"
   github_url        = var.github_url
   github_username   = var.github_username
-  github_password   = base64decode(var.github_password)
+  github_password   = local.git-token.token
   github_branch     = var.github_branch
   github_infra_path = var.github_infra_path
 

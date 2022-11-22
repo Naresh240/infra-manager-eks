@@ -9,6 +9,8 @@ min_size        = 1
 max_size        = 4
 
 ############
+domain_name     = "awsdevopstrainer.com"
+############
 external_dns_provider   = "aws"
 zonetype                = "public"
 #############
